@@ -5,6 +5,13 @@
   <h1>KATSSSSSSSS</h1>
   <p class="org">NUFF CATS FI GWARN</p>
   <img src="{{img}}" alt="Cat" width="300" height="300" />
+  <br />
+  <br />
+  <select>
+    {% for collection in breed_list %}
+    <option value="{{collection['name']}}">{{collection['name']}}</option>
+    {% endfor %}
+  </select>
   <p>{{desc}}</p>
 </div>
 
