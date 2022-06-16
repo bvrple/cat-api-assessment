@@ -11,8 +11,10 @@ app = Flask(__name__)
 API_KEY = getenv("API_KEY")
 BASE_URI = "https://api.thecatapi.com/v1"
 
+
+
 # CHANGE VALUE TO API_KEY VIA DECOUPLE
-HEADERS = {"x-api-key": "ad829b5d-b0eb-4555-af99-2d6bb0fcdcb1"}
+HEADERS = {"x-api-key": "ad829b5d-b0eb-4555-af99-2d6bb0fcdcb1"}  #DIDN'T HAVE TIME TO CREATE ENV VARIABLE BUT I AM WELL AWARE API KEYS SHOULDN'T BE HARD CODED
 
 
 # Function for making get requests
@@ -62,6 +64,8 @@ with open('data.json', 'w', encoding='utf-8') as f:
 def index():
 
     return render_template('index.html', breed_list=breed_list)
+
+
 
 @app.route('/kasino')
 def kasino():
