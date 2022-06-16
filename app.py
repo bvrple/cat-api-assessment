@@ -1,20 +1,12 @@
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
 import requests
 import json
 from os import getenv
-import pymysql
 from random import randrange
 
 # Instantiate Flask
 app = Flask(__name__)
 
-# #Initialize database
-# app.config['SQLALCHEMY_DATABASE_URI'] = getenv("DB_URI")
-# # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db' # Database for offline testing
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SECRET_KEY'] = getenv('secretkey')
-# db = SQLAlchemy(app)
 
 API_KEY = getenv("API_KEY")
 BASE_URI = "https://api.thecatapi.com/v1"
@@ -22,6 +14,8 @@ BASE_URI = "https://api.thecatapi.com/v1"
 # CHANGE VALUE TO API_KEY VIA DECOUPLE
 HEADERS = {"x-api-key": "ad829b5d-b0eb-4555-af99-2d6bb0fcdcb1"}
 
+
+# Function for making get requests
 def make_request(endpoint: str='/'):
     
     # GET request for playlist
@@ -31,10 +25,13 @@ def make_request(endpoint: str='/'):
     )
     return response
 
-
+# Requests the breeds endpoints to recieve all possible breeds
 json_data = make_request('/breeds').json()
 breed_list = []
+
+# Filtering incoming json for only required elements
 for breed in json_data:
+    try:
         breed_list.append(
             {
                 'id': breed['id'], 
@@ -46,9 +43,14 @@ for breed in json_data:
                 'energy_level': breed['energy_level'] ,
                 'intelligence': breed['intelligence'],
                 'friendliness': round(sum([breed['child_friendly'], breed['dog_friendly'], breed['stranger_friendly']])/3),
-                'description': breed['description']
+                'description': breed['description'],
+                'img': breed['image']['url']
             }
         )
+        
+    # 'image' call sometimes results in KeyError as some JSON objects have no image
+    except KeyError:
+        continue
 
 with open('data.json', 'w', encoding='utf-8') as f:
     json.dump(breed_list, f, indent = 4)
@@ -58,11 +60,17 @@ with open('data.json', 'w', encoding='utf-8') as f:
 
 @app.route('/')
 def index():
-    random_id = breed_list[randrange(len(breed_list))]['id']
-    img = make_request(f"/images/search?{random_id}").json()[0]['url']
 
-    return render_template('index.html', img=img, breed_list=breed_list)
+    return render_template('index.html', breed_list=breed_list)
 
+@app.route('/kasino')
+def kasino():
+    random_cat = breed_list[randrange(len(breed_list))]
+    name = random_cat['name']
+    img = random_cat['img']
+    desc = random_cat['description']
+    
+    return render_template('kasino.html', name=name, img=img, desc=desc)
 
 
 if __name__ == "__main__":  #pragma: no cover

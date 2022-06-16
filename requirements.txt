@@ -1,8 +1,2 @@
 flask
-flask_sqlalchemy
-flask_wtf
-wtforms
-flask-bootstrap
 requests
-typing
-pymysql

@@ -1,18 +1,65 @@
-{% extends "base.html" %}{% block content %}
+<html
 
-<!-- Header and welcome message -->
-<div class="header">
-  <h1>KATSSSSSSSS</h1>
-  <p class="org">NUFF CATS FI GWARN</p>
-  <img src="{{img}}" alt="Cat" width="300" height="300" />
-  <br />
-  <br />
-  <select>
-    {% for collection in breed_list %}
-    <option value="{{collection['name']}}">{{collection['name']}}</option>
-    {% endfor %}
-  </select>
-  <p>{{desc}}</p>
-</div>
+<head>
 
-{% endblock %}
+    <title>Feline Facts</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="./static/style.css" />
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+
+        crossorigin="anonymous">
+
+</head>
+
+<body>
+<a href="/kasino" class="header"
+                >Funky Felines</a
+              >
+    <div class="container">
+
+       {% for collection in breed_list %}
+
+        <div class="card">
+
+            <div class="slide slide1">
+
+                <div class="content">
+
+                    <div class="icon">
+
+                        <img src="{{collection['img']}}" class="card-img-top" alt="{{collection['name']}}" height="200" width="300">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="slide slide2">
+
+                <div class="content">
+
+                    <h4 class="card-name">{{collection['name']}}</h4>
+                    <h5 class="card-text">{{collection['origin']}}</h5>
+                    <p class="card-text">Adaptability     {{"*" * collection['adaptability']}}</p>
+                    <p class="card-text">Energy     {{"*" * collection['energy_level']}}</p>
+                    <p class="card-text">Intelligence     {{"*" * collection['intelligence']}}</p>
+                    <p class="card-text">Friendliness     {{"*" * collection['friendliness']}}</p>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        
+        {% endfor %} 
+
+    </div>
+
+</body>
+
+</html>
