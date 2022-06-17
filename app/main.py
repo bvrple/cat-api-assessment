@@ -73,12 +73,13 @@ def kasino():
     random_cat = breed_list[randrange(len(breed_list))]
     name = random_cat['name']
     img = random_cat['img']
+    traits = random_cat['temperament']
     desc = random_cat['description']
     
-    return render_template('kasino.html', name=name, img=img, desc=desc)
+    return render_template('kasino.html', name=name, img=img, traits=traits, desc=desc)
 
 
 if __name__ == "__main__":
     import os
     port = int(os.getenv('PORT'))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
