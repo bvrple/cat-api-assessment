@@ -4,6 +4,7 @@ import json
 from os import getenv
 from random import randrange
 
+
 # Instantiate Flask
 app = Flask(__name__)
 
