@@ -27,7 +27,7 @@ The index page is a collection of cards displaying an image of each breed, that 
 
 ![FF](funky_felines.gif)
 
-The kasino page is a random generator that displays a breed name along with an image and short description of that breed. These details are sourced from the breed_list array that was generated during the initial GET request.
+The kasino page is a random generator that displays a breed name along with an image, traits and short description of that breed. These details are sourced from the breed_list array that was generated during the initial GET request.
 
 ![KK](kat_kasino.gif)
 
